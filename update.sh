@@ -6,6 +6,5 @@ echo "Fetching Update"
 git fetch upstream
 #git rebase upstream/cs100-2014fall
 git merge upstream/cs100-2014fall
-echo "now you will be prompted to push your github repository..."
-git push
+echo "push to update if there was an update"
 
