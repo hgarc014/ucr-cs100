@@ -3,9 +3,10 @@
 DATE=$(date +"%m-%d-%Y")
 TIME=$(date +"%r")
 I=0
-FILENAME="class.$DATE"
+FILENAME="class.$DATE.remme"
 TEMP=removeMe
 
+rm *.remme
 echo -e "grades of class as of $DATE $TIME\n" > $FILENAME
 
 for file in people/students/*;
