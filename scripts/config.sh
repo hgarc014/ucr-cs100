@@ -41,6 +41,7 @@ function failScript {
 while [ ! -e "LICENSE" ]; do
     cd ..
 done
+
 ##########################################
 #checks if keys are installed
 checkKeys()
@@ -50,11 +51,9 @@ checkKeys()
         local STR=${INST##*/}
         if [[ $STR == *@* ]];then
             gpg --list-keys $STR  > $TMPFILE 2> $TMPFILE
-            if [ $? -eq 0 ] ;then
-                break
-            else
+            if [ ! $? -eq 0 ] ;then
                 colorPercent "50"
-                echo "Instructor keys were not installed, installing.."
+                echo "Instructor keys were not installed! Installing..."
                 resetColor
                 scripts/./install-instructor-keys.sh
                 colorPercent 100
@@ -66,6 +65,7 @@ checkKeys()
     rm $TMPFILE
 }
 #######################################
+
 # misc display functions
 
 # pad the input $1 with extra spaces so that is has exactly length $2
