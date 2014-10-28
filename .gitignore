@@ -32,3 +32,6 @@ gradetmp/
 *.exe
 *.out
 *.app
+
+#REMOVE FILES
+*.remme
