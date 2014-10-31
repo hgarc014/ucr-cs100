@@ -313,6 +313,15 @@ function totalOutOf {
     echo "$totaloutof"
 }
 
+##########################################
+#colors
+red="\x1b[31m"
+green="\x1b[32m"
+yellow="\x1b[33m"
+blue="\x1b[34m"
+mag="\x1b[35m"
+cyn="\x1b[36m"
+end="\x1b[0m"
 #######################################
 # displaying grades
 
@@ -322,18 +331,18 @@ function colorPercent {
     if [[ -z $1 ]]; then
         resetColor
     elif ((`bc <<< "$per>90"`)); then
-        printf "\x1b[32m"
+        printf "$green"
     elif ((`bc <<< "$per>80"`)); then
-        printf "\x1b[36m"
+        printf "$cyn"
     elif ((`bc <<< "$per>70"`)); then
-        printf "\x1b[33m"
+        printf "$yellow"
     else
-        printf "\x1b[31m"
+        printf "$red"
     fi
 }
 
 function resetColor {
-    printf "\x1b[0m"
+    printf "$end"
 }
 
 # $1 = percent
@@ -378,56 +387,25 @@ function percentToLetter {
     resetColor
 }
 
-#######################################
-#print color text functions
-
-# $1 = text
-function printRed {
-    printf "\x1B[31m"
-    printf "$1"
-    resetColor
-}
-
-# $1 = text
-function printGreen {
-    printf "\x1b[32m"
-    printf "$1"
-    resetColor
-}
-
-# $1 = text
-function printCyn {
-        printf "\x1b[36m"
-        printf "$1"
-        resetColor
-}
-
-# $1 = text
-function printYel {
-    printf "\x1b[33m"
-    printf "$1"
-    resetColor
-}
-
 ##########################################
 #checks if keys are installed
 checkKeys()
 {
     which gpg > /dev/null 2> /dev/null
     if [ ! $? -eq 0 ];then
-        echo You need to install gpg
-        echo https://www.gnupg.org/download/
-        exit 1
+        error "you need to install gpg: https://www.gnupg.org/download/"
     fi
     for INST in people/instructors/*;do
         local STR=${INST##*/}
         if [[ $STR == *@* ]];then
             gpg --list-keys $STR  > /dev/null 2> /dev/null
             if [ ! $? -eq 0 ] ;then
-                printRed "\nInstructor keys were not installed! Installing...\n\n"
-                scripts/./install-instructor-keys.sh
-                printGreen "\nDone installing keys\n\n"
+                echo -e "$yellow Instructor keys were not installed! Installing... $end"
+                scripts/install-instructor-keys.sh
+                echo -e "$green Done installing keys!! $end"
             fi
         fi
     done
 }
+
+
