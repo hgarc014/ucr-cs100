@@ -70,6 +70,10 @@ function error {
     failScript
 }
 
+function warning{
+    echo "WARN: $@" >&2
+}
+
 #######################################
 # get student info
 
