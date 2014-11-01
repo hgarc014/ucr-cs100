@@ -66,12 +66,12 @@ function padPercent {
 }
 
 function error {
-    echo "ERROR: $@" >&2
+    echo -e "$red ERROR: $@$endcolor" >&2
     failScript
 }
 
-function warning{
-    echo "WARN: $@" >&2
+function warning {
+    echo -e "$yellow WARN: $@$endcolor" >&2
 }
 
 #######################################
@@ -325,7 +325,7 @@ yellow="\x1b[33m"
 blue="\x1b[34m"
 mag="\x1b[35m"
 cyn="\x1b[36m"
-end="\x1b[0m"
+endcolor="\x1b[0m"
 #######################################
 # displaying grades
 
@@ -346,7 +346,7 @@ function colorPercent {
 }
 
 function resetColor {
-    printf "$end"
+    printf "$endcolor"
 }
 
 # $1 = percent
@@ -397,16 +397,16 @@ checkKeys()
 {
     which gpg > /dev/null 2> /dev/null
     if [ ! $? -eq 0 ];then
-        error "you need to install gpg: https://www.gnupg.org/download/"
+        error "you need to install gpg:$yellow https://www.gnupg.org/download/"
     fi
     for INST in people/instructors/*;do
         local STR=${INST##*/}
         if [[ $STR == *@* ]];then
             gpg --list-keys $STR  > /dev/null 2> /dev/null
             if [ ! $? -eq 0 ] ;then
-                echo -e "$yellow Instructor keys were not installed! Installing... $end"
+                warning "$yellow Instructor keys were not installed! Installing...$endcolor"
                 scripts/install-instructor-keys.sh
-                echo -e "$green Done installing keys!! $end"
+                echo -e "$green Done installing keys!!$endcolor"
             fi
         fi
     done

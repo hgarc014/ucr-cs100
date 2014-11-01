@@ -61,21 +61,13 @@ for f in `find . -name grade | sort`; do
         assnPercent=$(bc <<< "$cmd" 2> /dev/null)
         colorPercent "$assnPercent"
         printf "    %3s / %3s    " "$grade" "$outof"
-        printf "$end|"
-#        resetColor
-#        printf "|"
+        printf "$endcolor|"
         colorPercent "$assnPercent"
-        printf "  $assn $end| $grader "
-#        resetColor
-#        printf " |  $grader "
+        printf "  $assn $endcolor| $grader "
         if [ "$signature" = "G" ]; then
-#            colorPercent 100
-            printf "$green[signed]$end"
-#            resetColor
+            printf "$green[signed]$endcolor"
         else
-#            colorPercent 0
-            printf "$red[bad signature]$end"
-#            resetColor
+            printf "$red[bad signature]$endcolor"
         fi
         echo
     else
