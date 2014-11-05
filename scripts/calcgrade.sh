@@ -67,7 +67,15 @@ for f in `find . -name grade | sort`; do
         if [ "$signature" = "G" ]; then
             printf "$green[signed]$endcolor"
         else
-            printf "$red[bad signature]$endcolor"
+            if [ "$signature" = "U" ]; then
+                colorPercent 90
+                printf "[signed but untrusted]"
+                resetColor
+            else
+                colorPercent 0
+                printf "[bad signature]"
+                resetColor
+            fi
         fi
         echo
     else
