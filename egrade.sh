@@ -8,6 +8,6 @@ for INST in people/students/*;do
         STR=${INST##*/}
         echo $I: $STR | tee -a $FILE
         let I=I+1
-        scripts/calcgrade.sh $STR | tail -4 >> $FILE
+        scripts/calcgrade.sh $STR >> $FILE
     done
 

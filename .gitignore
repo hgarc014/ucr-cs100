@@ -34,4 +34,4 @@ gradetmp/
 *.app
 
 #REMOVE FILES
-*.remme
+*.rem
