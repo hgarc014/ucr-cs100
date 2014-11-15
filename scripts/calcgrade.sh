@@ -18,7 +18,7 @@ if [ -z $user ]; then
 fi
 
 #######################################
-# check if user has installed keys
+# check if instructor keys are installed
 
 checkKeys
 
@@ -63,18 +63,14 @@ for f in `find . -name grade | sort`; do
         printf "    %3s / %3s    " "$grade" "$outof"
         printf "$endcolor|"
         colorPercent "$assnPercent"
-        printf "  $assn $endcolor| $grader "
+        printf "  $assn$endcolor |  $grader "
         if [ "$signature" = "G" ]; then
             printf "$green[signed]$endcolor"
         else
             if [ "$signature" = "U" ]; then
-                colorPercent 90
-                printf "[signed but untrusted]"
-                resetColor
+                printf "$cyn[signed but untrusted]$endcolor"
             else
-                colorPercent 0
-                printf "[bad signature]"
-                resetColor
+                printf "$red[bad signature]$endcolor"
             fi
         fi
         echo
