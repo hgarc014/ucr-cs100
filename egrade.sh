@@ -1,8 +1,10 @@
 #!/bin/bash
 
-FILE=all.rem
+DATE=$(date +"%m-%d-%Y")
+TIME=$(date +"%H-%M")
+FILE=all.$DATE\.$TIME\.rem
 I=1
-> $FILE
+rm all*.rem
 
 for INST in people/students/*;do
         STR=${INST##*/}
