@@ -1,1 +1,3 @@
-/ 100
+90 / 100
+checksyscall -10 part1 20 part2 30 part3 30 extra +20
+part1: non executable in the current
